@@ -1,6 +1,7 @@
 ## Custom
 *.txt
 *.bin
+.vscode/
 
 ## IntelliJ IDEA
 
