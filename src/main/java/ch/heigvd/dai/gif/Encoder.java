@@ -22,7 +22,8 @@ public class Encoder {
    * @return Byte array representing the encoded GIF.
    * @throws IOException If an I/O error occurs during encoding.
    */
-  public byte[] encodeGif(List<BufferedImage> images, int loopCount, int delay) throws IOException {
+  public static byte[] encodeGif(List<BufferedImage> images, int loopCount, int delay)
+      throws IOException {
     if (images == null || images.isEmpty()) {
       throw new IllegalArgumentException("Image list cannot be null or empty");
     }
@@ -59,7 +60,7 @@ public class Encoder {
    * @return Configured IIOMetadata object.
    * @throws IOException If an I/O error occurs during metadata creation.
    */
-  private IIOMetadata createMetadata(
+  private static IIOMetadata createMetadata(
       ImageWriter writer, BufferedImage firstImage, int loopCount, int delay) throws IOException {
     IIOMetadata metadata =
         writer.getDefaultImageMetadata(new javax.imageio.ImageTypeSpecifier(firstImage), null);
@@ -79,7 +80,7 @@ public class Encoder {
    * @param root Root metadata node.
    * @param delay Delay time between frames in milliseconds.
    */
-  private void configureGraphicsControlExtension(IIOMetadataNode root, int delay) {
+  private static void configureGraphicsControlExtension(IIOMetadataNode root, int delay) {
     IIOMetadataNode graphicsControlExtensionNode = getNode(root, "GraphicControlExtension");
     graphicsControlExtensionNode.setAttribute("delayTime", Integer.toString(delay / 10));
     graphicsControlExtensionNode.setAttribute("disposalMethod", "restoreToBackgroundColor");
@@ -91,7 +92,7 @@ public class Encoder {
    * @param root Root metadata node.
    * @param loopCount Number of times the GIF should loop.
    */
-  private void configureApplicationExtensions(IIOMetadataNode root, int loopCount) {
+  private static void configureApplicationExtensions(IIOMetadataNode root, int loopCount) {
     IIOMetadataNode applicationExtensionsNode = getNode(root, "ApplicationExtensions");
     IIOMetadataNode applicationExtensionNode = new IIOMetadataNode("ApplicationExtension");
     applicationExtensionNode.setAttribute("applicationID", "NETSCAPE");
@@ -109,7 +110,7 @@ public class Encoder {
    * @param nodeName Name of the node to retrieve or create.
    * @return The retrieved or newly created IIOMetadataNode.
    */
-  private IIOMetadataNode getNode(IIOMetadataNode rootNode, String nodeName) {
+  private static IIOMetadataNode getNode(IIOMetadataNode rootNode, String nodeName) {
     int nNodes = rootNode.getLength();
     for (int i = 0; i < nNodes; i++) {
       if (rootNode.item(i).getNodeName().equalsIgnoreCase(nodeName)) {
