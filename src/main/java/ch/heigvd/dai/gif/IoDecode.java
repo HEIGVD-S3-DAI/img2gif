@@ -3,6 +3,7 @@ package ch.heigvd.dai.gif;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.Buffer;
+import java.nio.file.Paths;
 import java.util.*;
 import javax.imageio.*;
 
@@ -30,12 +31,12 @@ public class IoDecode {
      * @param directoryName the name of the directory to save the files in.
      * @param images a List of BufferedImage to save as jpg files.
      */
-    public void writeImages(String directoryName, List<BufferedImage> images) {
+    public static void writeImages(String directoryName, List<BufferedImage> images) {
         for (int i = 1; i <= images.size(); i++) {
-            try(FileOutputStream fos = new FileOutputStream(directoryName + "/image_" + i);
+            try(FileOutputStream fos = new FileOutputStream(Paths.get(directoryName, "image_" + i + ".png").toString());
                 BufferedOutputStream bos = new BufferedOutputStream(fos))
             {
-                ImageIO.write(images.get(i - 1), "jpg", bos);
+                ImageIO.write(images.get(i - 1), "png", bos);
                 bos.flush();
             } catch (IOException e) {
                 System.err.println("Error: " + e.getMessage());

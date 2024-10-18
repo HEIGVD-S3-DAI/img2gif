@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
 import javax.imageio.*;
+import java.nio.file.Paths;
 
 public class IoEncode {
 
@@ -48,7 +49,7 @@ public class IoEncode {
             for (File file : files) {
                 // Add only file names (excluding directories)
                 if (file.isFile() && isImageFile(file.getName())) {
-                    fileNames.add(file.getName());
+                    fileNames.add(Paths.get(directoryName, file.getName()).toString());
                 }
             }
         } else {
