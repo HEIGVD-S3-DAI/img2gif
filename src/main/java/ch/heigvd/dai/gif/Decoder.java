@@ -19,7 +19,7 @@ public class Decoder {
    * @return List of BufferedImage objects extracted from the GIF.
    * @throws IOException If an I/O error occurs during decoding.
    */
-  public List<BufferedImage> decodeGif(byte[] gifData) throws IOException {
+  public static List<BufferedImage> decodeGif(byte[] gifData) throws IOException {
     List<BufferedImage> images = new ArrayList<>();
     ByteArrayInputStream inputStream = new ByteArrayInputStream(gifData);
     ImageInputStream imageInputStream = ImageIO.createImageInputStream(inputStream);
