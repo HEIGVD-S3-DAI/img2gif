@@ -32,6 +32,7 @@ public class Decode implements Callable<Integer> {
       IoUtils.writeImages(outputPath, images);
     } catch (IOException e) {
       System.err.println("ERROR: " + e.getMessage());
+      return 1;
     }
     return 0;
   }

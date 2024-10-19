@@ -40,6 +40,15 @@ public class Encode implements Callable<Integer> {
 
   @Override
   public Integer call() {
+    if (loopCount < 0) {
+      System.err.println("ERROR: loopCount must be non-negative.");
+      return 1;
+    }
+    if (delay < 0) {
+      System.err.println("ERROR: delay must be non-negative.");
+      return 1;
+    }
+
     try {
       List<BufferedImage> images = IoUtils.readImages(inputFolder);
       if (images.isEmpty()) return 1;
@@ -47,6 +56,7 @@ public class Encode implements Callable<Integer> {
       IoUtils.writeGif(this.outputPath, dataGif);
     } catch (IOException e) {
       System.err.println("ERROR: " + e.getMessage());
+      return 1;
     }
     return 0;
   }
