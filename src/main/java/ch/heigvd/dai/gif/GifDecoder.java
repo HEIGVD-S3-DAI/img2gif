@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
-public class Decoder {
+public class GifDecoder {
 
   /**
    * Decodes a GIF byte array into a list of BufferedImage objects.
@@ -19,7 +19,7 @@ public class Decoder {
    * @return List of BufferedImage objects extracted from the GIF.
    * @throws IOException If an I/O error occurs during decoding.
    */
-  public static List<BufferedImage> decodeGif(byte[] gifData) throws IOException {
+  public static List<BufferedImage> decode(byte[] gifData) throws IOException {
     List<BufferedImage> images = new ArrayList<>();
     ByteArrayInputStream inputStream = new ByteArrayInputStream(gifData);
     ImageInputStream imageInputStream = ImageIO.createImageInputStream(inputStream);

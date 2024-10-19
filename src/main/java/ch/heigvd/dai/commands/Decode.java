@@ -1,7 +1,7 @@
 package ch.heigvd.dai.commands;
 
-import ch.heigvd.dai.gif.Decoder;
-import ch.heigvd.dai.gif.IoDecode;
+import ch.heigvd.dai.gif.GifDecoder;
+import ch.heigvd.dai.gif.IoUtils;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -27,9 +27,9 @@ public class Decode implements Callable<Integer> {
   @Override
   public Integer call() {
     try {
-      byte[] gifData = IoDecode.readGif(inputFile);
-      List<BufferedImage> images = Decoder.decodeGif(gifData);
-      IoDecode.writeImages(outputPath, images);
+      byte[] gifData = IoUtils.readGif(inputFile);
+      List<BufferedImage> images = GifDecoder.decode(gifData);
+      IoUtils.writeImages(outputPath, images);
     } catch (IOException e) {
       System.err.println("ERROR:" + e.getMessage());
     }

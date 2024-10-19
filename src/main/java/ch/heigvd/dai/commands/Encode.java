@@ -1,7 +1,7 @@
 package ch.heigvd.dai.commands;
 
-import ch.heigvd.dai.gif.Encoder;
-import ch.heigvd.dai.gif.IoEncode;
+import ch.heigvd.dai.gif.GifEncoder;
+import ch.heigvd.dai.gif.IoUtils;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -40,10 +40,10 @@ public class Encode implements Callable<Integer> {
   @Override
   public Integer call() {
     try {
-      List<BufferedImage> images = IoEncode.readImages(inputFolder);
+      List<BufferedImage> images = IoUtils.readImages(inputFolder);
       if (images.isEmpty()) return 1;
-      byte[] dataGif = Encoder.encodeGif(images, loopCount, delay);
-      IoEncode.writeGif(this.outputPath, dataGif);
+      byte[] dataGif = GifEncoder.encode(images, loopCount, delay);
+      IoUtils.writeGif(this.outputPath, dataGif);
     } catch (IOException e) {
       System.err.println("ERROR:" + e.getMessage());
     }
