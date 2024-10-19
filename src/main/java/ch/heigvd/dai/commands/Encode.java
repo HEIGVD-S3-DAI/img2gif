@@ -2,7 +2,6 @@ package ch.heigvd.dai.commands;
 
 import ch.heigvd.dai.gif.GifEncoder;
 import ch.heigvd.dai.gif.IoUtils;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;

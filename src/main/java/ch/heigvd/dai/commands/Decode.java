@@ -20,7 +20,8 @@ public class Decode implements Callable<Integer> {
 
   @CommandLine.Option(
       names = {"-o", "--output"},
-      description = "Path of the output directory to save the images in",
+      description =
+          "Path of the output directory to save the images in. By default, the images are saved in the current directory.",
       defaultValue = "")
   private String outputPath;
 
