@@ -2,6 +2,7 @@ package ch.heigvd.dai.commands;
 
 import ch.heigvd.dai.gif.GifEncoder;
 import ch.heigvd.dai.gif.IoUtils;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -45,7 +46,7 @@ public class Encode implements Callable<Integer> {
       byte[] dataGif = GifEncoder.encode(images, loopCount, delay);
       IoUtils.writeGif(this.outputPath, dataGif);
     } catch (IOException e) {
-      System.err.println("ERROR:" + e.getMessage());
+      System.err.println("ERROR: " + e.getMessage());
     }
     return 0;
   }

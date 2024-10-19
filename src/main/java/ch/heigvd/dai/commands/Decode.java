@@ -31,7 +31,7 @@ public class Decode implements Callable<Integer> {
       List<BufferedImage> images = GifDecoder.decode(gifData);
       IoUtils.writeImages(outputPath, images);
     } catch (IOException e) {
-      System.err.println("ERROR:" + e.getMessage());
+      System.err.println("ERROR: " + e.getMessage());
     }
     return 0;
   }
