@@ -13,35 +13,39 @@ import picocli.CommandLine;
     description = "Create a gif file based on a directory containing images.")
 public class Encode implements Callable<Integer> {
 
-  @CommandLine.ParentCommand protected Root parent;
+  @CommandLine.ParentCommand private Root parent;
+
+  @CommandLine.Parameters(index = "0", description = "The name of input folder.", arity = "1")
+  protected String inputFolder;
 
   @CommandLine.Option(
       names = {"-l", "--loopcount"},
       description =
           "Number of loops of the gif, set to 0 for infinite loop, (default: ${DEFAULT-VALUE}).",
       defaultValue = "0")
-  protected int loopCount;
+  private int loopCount;
 
   @CommandLine.Option(
       names = {"-d", "--delay"},
       description = "Delay between frames of the gif, (default: ${DEFAULT-VALUE}).",
       defaultValue = "0")
-  protected int delay;
+  private int delay;
 
   @CommandLine.Option(
       names = {"-o", "--output"},
       description = "Output path, (default: ${DEFAULT-VALUE}).",
       defaultValue = "output.gif")
-  protected String outputPath;
+  private String outputPath;
 
   @Override
   public Integer call() {
     try {
-      List<BufferedImage> images = IoEncode.readImages(parent.getInputFolder());
+      List<BufferedImage> images = IoEncode.readImages(inputFolder);
+      if (images.isEmpty()) return 1;
       byte[] dataGif = Encoder.encodeGif(images, loopCount, delay);
       IoEncode.writeGif(this.outputPath, dataGif);
     } catch (IOException e) {
-      System.err.println("Error : " + e.getMessage());
+      System.err.println("ERROR:" + e.getMessage());
     }
     return 0;
   }

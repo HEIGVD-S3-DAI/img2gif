@@ -11,12 +11,4 @@ import picocli.CommandLine;
     },
     scope = CommandLine.ScopeType.INHERIT,
     mixinStandardHelpOptions = true)
-public class Root {
-
-  @CommandLine.Parameters(index = "0", description = "The name of input folder.", arity = "1")
-  protected String inputFolder;
-
-  public String getInputFolder() {
-    return inputFolder;
-  }
-}
+public class Root {}

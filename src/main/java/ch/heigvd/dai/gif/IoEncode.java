@@ -14,7 +14,7 @@ public class IoEncode {
    * @param fileName the name of the file we want to test.
    * @return true if the file is an image, false if it isn't.
    */
-  public static boolean isImageFile(String fileName) {
+  private static boolean isImageFile(String fileName) {
     // Check for common image file extensions
     return fileName.endsWith(".jpg")
         || fileName.endsWith(".jpeg")
@@ -28,20 +28,19 @@ public class IoEncode {
    *
    * @param directoryName the name of the directory.
    * @return A List of String containing names of the files that are images in the directory.
+   * @throws IOException
    */
-  public static List<String> getImagesFilesNames(String directoryName) {
+  private static List<String> getImagesFilesNames(String directoryName) throws IOException {
     List<String> fileNames = new ArrayList<>();
     File directory = new File(directoryName);
 
     // Check if the directory exists and is indeed a directory
     if (!directory.exists()) {
-      System.err.println("Directory does not exist: " + directoryName);
-      return fileNames; // Return an empty list
+      throw new IOException("Directory does not exist: " + directoryName);
     }
 
     if (!directory.isDirectory()) {
-      System.err.println(directoryName + " is not a directory.");
-      return fileNames; // Return an empty list
+      throw new IOException(directoryName + " is not a directory.");
     }
 
     // Get all the files in the directory
@@ -55,7 +54,7 @@ public class IoEncode {
         }
       }
     } else {
-      System.err.println("An error occurred while reading the directory.");
+      throw new IOException("An error occurred while reading the directory.");
     }
 
     return fileNames;
@@ -66,16 +65,16 @@ public class IoEncode {
    *
    * @param fileName the name of the file.
    * @return a BufferedImage corresponding to the file read.
+   * @throws IOException
    */
-  public static BufferedImage readImage(String fileName) {
+  private static BufferedImage readImage(String fileName) throws IOException {
     try (InputStream fis = new FileInputStream(fileName);
         BufferedInputStream bis = new BufferedInputStream(fis); ) {
       return ImageIO.read(bis);
 
     } catch (IOException e) {
-      System.err.println("Error: " + e.getMessage());
+      throw e;
     }
-    return null;
   }
 
   /**
@@ -83,8 +82,9 @@ public class IoEncode {
    *
    * @param directoryName the name of the directory containing the images.
    * @return a List of BufferedImage corresponding to the image files in the directory.
+   * @throws IOException
    */
-  public static List<BufferedImage> readImages(String directoryName) {
+  public static List<BufferedImage> readImages(String directoryName) throws IOException {
     List<String> fileNames = getImagesFilesNames(directoryName);
     List<BufferedImage> images = new ArrayList<>();
     for (String fileName : fileNames) {
@@ -98,14 +98,15 @@ public class IoEncode {
    *
    * @param outputPath path of the directory where the output file will be created.
    * @param byteArray content that will be written in the output binary file.
+   * @throws IOException
    */
-  public static void writeGif(String outputPath, byte[] byteArray) {
+  public static void writeGif(String outputPath, byte[] byteArray) throws IOException {
     try (FileOutputStream fos = new FileOutputStream(outputPath);
         BufferedOutputStream bos = new BufferedOutputStream(fos)) {
       bos.write(byteArray);
       bos.flush();
     } catch (IOException e) {
-      System.err.println("Error: " + e.getMessage());
+      throw e;
     }
   }
 }
