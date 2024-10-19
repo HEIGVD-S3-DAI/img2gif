@@ -41,7 +41,7 @@ img2gif encode <inputFolder>
 ### GIF to Images
 
 ```bash
-img2gif decode <outputFolder>
+img2gif decode <inputGif>
 ```
 
 ## References
