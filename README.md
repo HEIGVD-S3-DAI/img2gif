@@ -71,7 +71,7 @@ img2gif encode <inputFolder>
 | Command           | Description                                                          |
 | ----------------- | -------------------------------------------------------------------- |
 | `<inputFolder>`   | The folder containing the images to encode                           |
-| `-o, --output`    | The output file name. Default is `output.gif`                        |
+| `-o, --output`    | The output file path. Default is `output.gif`                        |
 | `-d, --delay`     | Delay between frames of the gif, (default: 0)                        |
 | `-h, --help`      | Show this help message and exit                                      |
 | `-l, --loopcount` | Number of loops of the gif, set to 0 for infinite loop, (default: 0) |
