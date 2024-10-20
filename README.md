@@ -14,7 +14,9 @@
 
 A simple CLI tool to Convert images into gifs.
 
-![Cat GIF](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+| Before                                                  | After                                                             |
+| ------------------------------------------------------- | ----------------------------------------------------------------- |
+| ![Cat](samples/image_1.png) ![Cat](samples/image_4.png) | ![Cat GIF](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif) |
 
 ## Installation
 
@@ -110,8 +112,8 @@ The command above decodes the `samples.gif` file into a `samples_copy` folder.
 
 For the implementation of the GIF Codec, we used ChatGPT to create a minimal
 API that would allow us to encode and decode GIF files. See
-[Encoder](./src/main/java/ch/heigvd/dai/gif/GifEncoder.java)
-and [Decoder](./src/main/java/ch/heigvd/dai/gif/GifDecoder.java). We implemented the rest of the CLI tool and IO operations.
+[GifEncoder](./src/main/java/ch/heigvd/dai/gif/GifEncoder.java)
+and [GifDecoder](./src/main/java/ch/heigvd/dai/gif/GifDecoder.java). We implemented the rest of the CLI tool and IO operations.
 
 ## Authors
 
