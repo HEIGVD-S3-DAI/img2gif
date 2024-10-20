@@ -11,7 +11,7 @@ import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataNode;
 import javax.imageio.stream.ImageOutputStream;
 
-public class Encoder {
+public class GifEncoder {
 
   /**
    * Encodes a list of BufferedImage objects into a GIF byte array.
@@ -22,7 +22,7 @@ public class Encoder {
    * @return Byte array representing the encoded GIF.
    * @throws IOException If an I/O error occurs during encoding.
    */
-  public static byte[] encodeGif(List<BufferedImage> images, int loopCount, int delay)
+  public static byte[] encode(List<BufferedImage> images, int loopCount, int delay)
       throws IOException {
     if (images == null || images.isEmpty()) {
       throw new IllegalArgumentException("Image list cannot be null or empty");

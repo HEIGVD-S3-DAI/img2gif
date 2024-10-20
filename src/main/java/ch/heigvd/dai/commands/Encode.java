@@ -1,7 +1,7 @@
 package ch.heigvd.dai.commands;
 
-import ch.heigvd.dai.gif.Encoder;
-import ch.heigvd.dai.gif.IoEncode;
+import ch.heigvd.dai.gif.GifEncoder;
+import ch.heigvd.dai.gif.IoUtils;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -13,35 +13,49 @@ import picocli.CommandLine;
     description = "Create a gif file based on a directory containing images.")
 public class Encode implements Callable<Integer> {
 
-  @CommandLine.ParentCommand protected Root parent;
+  @CommandLine.ParentCommand private Root parent;
+
+  @CommandLine.Parameters(index = "0", description = "The name of input folder.", arity = "1")
+  protected String inputFolder;
 
   @CommandLine.Option(
       names = {"-l", "--loopcount"},
       description =
           "Number of loops of the gif, set to 0 for infinite loop, (default: ${DEFAULT-VALUE}).",
       defaultValue = "0")
-  protected int loopCount;
+  private int loopCount;
 
   @CommandLine.Option(
       names = {"-d", "--delay"},
       description = "Delay between frames of the gif, (default: ${DEFAULT-VALUE}).",
       defaultValue = "0")
-  protected int delay;
+  private int delay;
 
   @CommandLine.Option(
       names = {"-o", "--output"},
       description = "Output path, (default: ${DEFAULT-VALUE}).",
       defaultValue = "output.gif")
-  protected String outputPath;
+  private String outputPath;
 
   @Override
   public Integer call() {
+    if (loopCount < 0) {
+      System.err.println("ERROR: loopCount must be non-negative.");
+      return 1;
+    }
+    if (delay < 0) {
+      System.err.println("ERROR: delay must be non-negative.");
+      return 1;
+    }
+
     try {
-      List<BufferedImage> images = IoEncode.readImages(parent.getInputFolder());
-      byte[] dataGif = Encoder.encodeGif(images, loopCount, delay);
-      IoEncode.writeGif(this.outputPath, dataGif);
+      List<BufferedImage> images = IoUtils.readImages(inputFolder);
+      if (images.isEmpty()) return 1;
+      byte[] dataGif = GifEncoder.encode(images, loopCount, delay);
+      IoUtils.writeGif(this.outputPath, dataGif);
     } catch (IOException e) {
-      System.err.println("Error : " + e.getMessage());
+      System.err.println("ERROR: " + e.getMessage());
+      return 1;
     }
     return 0;
   }
