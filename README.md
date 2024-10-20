@@ -23,7 +23,7 @@ A simple CLI tool to Convert images into gifs.
 Start by cloning the repository:
 
 ```bash
-git clone https://github.com/leonardcser/img2gif.git
+git clone https://github.com/HEIGVD-S3-DAI/img2gif.git
 ```
 
 Make sure you make java jdk>=21 installed on your machine and follow the steps below:
