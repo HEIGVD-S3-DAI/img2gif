@@ -29,11 +29,15 @@ public class IoUtils {
   /**
    * Create a file and write the content of a byteArray in it. Used to save the output.
    *
-   * @param outputPath path of the directory where the output file will be created.
+   * @param outputPath path of the output gif file.
    * @param byteArray content that will be written in the output binary file.
    * @throws IOException
    */
   public static void writeGif(String outputPath, byte[] byteArray) throws IOException {
+    File file = new File(outputPath);
+    if (file.getParentFile() != null && !file.getParentFile().exists()) {
+      file.getParentFile().mkdirs();
+    }
     try (FileOutputStream fos = new FileOutputStream(outputPath);
         BufferedOutputStream bos = new BufferedOutputStream(fos)) {
       bos.write(byteArray);
@@ -68,6 +72,10 @@ public class IoUtils {
    */
   public static void writeImages(String directoryName, List<BufferedImage> images)
       throws IOException {
+    File directory = new File(directoryName);
+    if (!directory.exists()) {
+      directory.mkdirs();
+    }
     for (int i = 1; i <= images.size(); i++) {
       try (FileOutputStream fos =
               new FileOutputStream(Paths.get(directoryName, "image_" + i + ".png").toString());
